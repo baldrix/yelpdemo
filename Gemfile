@@ -43,3 +43,4 @@ gem 'pg', group: :production
 gem "fog"
 gem 'carrierwave'
 gem 'figaro'
+gem 'mini_magick'
