@@ -1,17 +1,9 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
 
   respond_to :html
 
-  def index
-    @reviews = Review.all
-    respond_with(@reviews)
-  end
-
-  def show
-    respond_with(@review)
-  end
 
   def new
     @review = Review.new
@@ -24,8 +16,15 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
-    @review.save
-    respond_with(@review)
+
+    respond_with do |format|
+    if @review.save
+      format.html {redirect_to root_path, notice:"Review successfully saved"}
+    else
+      format.html {render :new}
+    end
+  end
+   # respond_with(@review)
   end
 
   def update
