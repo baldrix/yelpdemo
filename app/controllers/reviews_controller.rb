@@ -21,7 +21,9 @@ class ReviewsController < ApplicationController
 
     respond_with do |format|
     if @review.save
-      format.html {redirect_to root_path, notice:"Review successfully saved"}
+      #format.html {redirect_to restaurant_path(@restaurant), notice:"Review successfully saved"}
+      #this is a shortcut to go to restaurant show page this is infered by rails
+      format.html {redirect_to @restaurant, notice:"Review successfully saved"}
     else
       format.html {render :new}
     end
